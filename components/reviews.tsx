@@ -1,20 +1,15 @@
+import type { JSX } from "react";
 import { ProductReviewCard } from "#/components/product-review-card";
-import { delayReviews, withDelay } from "#/lib/delay";
+import { DELAY_REVIEWS_MS } from "#/lib/constants";
+import { withDelay } from "#/lib/delay";
 import type { Review } from "#/types/review";
 
-export async function Reviews() {
+export async function Reviews(): Promise<JSX.Element> {
   const reviews: Review[] = await withDelay(
-    fetch(
-      // We intentionally delay the response to simulate a slow data
-      // request that would benefit from streaming
-      `https://app-router-api.vercel.app/api/reviews`,
-      {
-        // We intentionally disable Next.js Cache to better demo
-        // streaming
-        cache: "no-store",
-      },
-    ).then((res) => res.json()),
-    delayReviews,
+    fetch(`https://app-router-api.vercel.app/api/reviews`, {
+      cache: "no-store",
+    }).then((res) => res.json()),
+    DELAY_REVIEWS_MS,
   );
 
   return (
@@ -31,7 +26,7 @@ export async function Reviews() {
 
 const shimmer = `relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_1.5s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent`;
 
-function Skeleton() {
+function Skeleton(): JSX.Element {
   return (
     <div className="space-y-4">
       <div className="h-6 w-2/6 rounded-lg bg-gray-900" />

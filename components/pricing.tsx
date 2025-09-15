@@ -1,18 +1,13 @@
 import { type DineroSnapshot, dinero } from "dinero.js";
-import { cookies } from "next/headers";
 import { Suspense } from "react";
 import { AddToCart } from "#/components/add-to-cart";
 import { Ping } from "#/components/ping";
 import { ProductEstimatedArrival } from "#/components/product-estimated-arrival";
 import { ProductLowStockWarning } from "#/components/product-low-stock-warning";
 import { ProductSplitPayments } from "#/components/product-split-payments";
-import { delayShippingEstimate, withDelay } from "#/lib/delay";
+import { DELAY_SHIPPINGESTIMATE_MS } from "#/lib/constants";
+import { withDelay } from "#/lib/delay";
 import type { Product } from "#/types/product";
-
-async function AddToCartFromCookies() {
-  const cartCount = Number((await cookies()).get("_cart_count")?.value || "0");
-  return <AddToCart initialCartCount={cartCount} />;
-}
 
 function LoadingDots() {
   return (
@@ -40,7 +35,7 @@ async function UserSpecificDetails({ productId }: { productId: string }) {
         cache: "no-store",
       },
     ),
-    delayShippingEstimate,
+    DELAY_SHIPPINGESTIMATE_MS,
   );
 
   const product = (await data.json()) as Product;
@@ -65,7 +60,7 @@ export function Pricing({ product }: { product: Product }) {
   return (
     <div className="space-y-4 rounded-lg bg-gray-900 p-3">
       <div className="flex">
-        <div className="text-sm leading-snug text-white">$</div>
+        <div className="text-sm leading-snug text-white">₹</div>
         <div className="text-lg font-bold leading-snug text-white">0</div>
       </div>
 
@@ -75,9 +70,7 @@ export function Pricing({ product }: { product: Product }) {
         <UserSpecificDetails productId={product.id} />
       </Suspense>
 
-      <Suspense fallback={<AddToCart initialCartCount={0} />}>
-        <AddToCartFromCookies />
-      </Suspense>
+      <AddToCart product={product} />
     </div>
   );
 }

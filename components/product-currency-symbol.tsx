@@ -18,7 +18,7 @@ export const ProductCurrencySymbol = ({
     }
 
     default: {
-      symbol = "$";
+      symbol = "₹";
       break;
     }
   }

@@ -1,20 +1,14 @@
 import { ProductCard } from "#/components/product-card";
-import { delayRecommendedProducts, withDelay } from "#/lib/delay";
+import { DELAY_RECCOMENDED_PRODUCTS_MS } from "#/lib/constants";
+import { withDelay } from "#/lib/delay";
 import type { Product } from "#/types/product";
 
 export async function RecommendedProducts() {
   const products: Product[] = await withDelay(
-    fetch(
-      // We intentionally delay the response to simulate a slow data
-      // request that would benefit from streaming
-      `https://app-router-api.vercel.app/api/products?filter=1`,
-      {
-        // We intentionally disable Next.js Cache to better demo
-        // streaming
-        cache: "no-store",
-      },
-    ).then((res) => res.json()),
-    delayRecommendedProducts,
+    fetch(`https://app-router-api.vercel.app/api/products?filter=1`, {
+      cache: "no-store",
+    }).then((res) => res.json()),
+    DELAY_RECCOMENDED_PRODUCTS_MS,
   );
 
   return (

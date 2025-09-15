@@ -12,7 +12,9 @@
     "cl": "rm -rf .next"
   },
   "dependencies": {
+    "@dodopayments/nextjs": "0.1.9",
     "@heroicons/react": "2.1.5",
+    "@neondatabase/serverless": "1.0.1",
     "clsx": "2.1.1",
     "date-fns": "3.6.0",
     "dinero.js": "2.0.0-alpha.8",

@@ -33,7 +33,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
         {product.rating ? <ProductRating rating={product.rating} /> : null}
 
         <div className="flex">
-          <div className="text-sm leading-snug text-white">$</div>
+          <div className="text-sm leading-snug text-white">₹</div>
           <div className="text-lg font-bold leading-snug text-white">0</div>
         </div>
 

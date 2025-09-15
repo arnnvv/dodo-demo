@@ -12,7 +12,7 @@ export const ProductUsedPrice = ({
     <div className="text-sm">
       <div className="text-gray-400">More buying choices</div>
       <div className="text-gray-200">
-        ${toUnit(usedPrice, { digits: 0, round: up })} (used)
+        ₹{toUnit(usedPrice, { digits: 0, round: up })} (used)
       </div>
     </div>
   );

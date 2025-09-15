@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import type { JSX, ReactNode } from "react";
 import { CartCountProvider } from "#/components/cart-count-context";
+import { appConfig } from "#/lib/config";
 import { GlobalStyles } from "./styles";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(appConfig.app.baseUrl),
+};
 
 export default function RootLayout({
   children,
