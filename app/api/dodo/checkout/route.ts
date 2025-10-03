@@ -11,5 +11,5 @@ export const POST = Checkout({
   bearerToken: appConfig.dodo.apiKey,
   returnUrl: appConfig.dodo.returnUrl,
   environment: appConfig.dodo.environment,
-  type: "session",
+  type: "static",
 });
